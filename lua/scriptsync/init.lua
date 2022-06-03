@@ -11,8 +11,14 @@ local run = function()
   receiver.startServer()
 end
 
+local stop = function()
+  sender.stopServer()
+  receiver.stopServer()
+  lualine.resetLuaLine()
+end
+
 
 --[[
 EXPORT STUFF
 ]]
-return { run = run }
+return { run = run, stop = stop }

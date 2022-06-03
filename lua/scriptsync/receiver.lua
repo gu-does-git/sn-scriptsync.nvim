@@ -1,6 +1,7 @@
 --[[
 SERVER STUFF
 ]]
+local M = {};
 local parser = require 'httprequestparser'
 
 local function get_keys(t)
@@ -24,18 +25,20 @@ local function create_server(host, port, on_connect)
   return server
 end
 
-ReceiverConnected = false;
+M.ReceiverConnected = false;
 
-function startServer()
+Server = false;
+
+M.startServer = function()
   -- Initial connection handler
-  local server = create_server('0.0.0.0', 1977, function(sock)
+  Server = create_server('0.0.0.0', 1977, function(sock)
     sock:read_start(function(err, data)
       print('ReceiverConnected')
       assert(not err, err) -- Check for errors.
 
 
       if data then
-        ReceiverConnected = true;
+        M.ReceiverConnected = true;
         local body = parser.getRequestBodyAsString(data)
         local parsed = parser.handleJsonBody(data)
 
@@ -45,7 +48,11 @@ function startServer()
   end)
 end
 
-return {
-  receiverConnected = ReceiverConnected,
-  startServer = startServer
-}
+M.stopServer = function()
+  if Server or M.ReceiverConnected == true then
+    M.ReceiverConnected = false;
+    Server:stop();
+  end
+end
+
+return M

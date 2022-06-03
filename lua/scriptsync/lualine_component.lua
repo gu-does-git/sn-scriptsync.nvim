@@ -1,3 +1,4 @@
+local M = {}
 local utils = require 'scriptsync.utils'
 
 --[[
@@ -8,24 +9,21 @@ LuaLineSeparator = " > "
 LuaLineMessage = ""
 
 -- init LuaLineMessage
-function resetLuaLine()
+M.resetLuaLine = function()
   LuaLineMessage = LuaLineTitle
 end
 
-local function luaLineController()
+local luaLineController = function()
   return LuaLineMessage
 end
 
-function startLuaLine()
+M.startLuaLine = function()
   LuaLineMessage = LuaLineTitle .. LuaLineSeparator .. "Started"
   utils.set_timeout(1000, function()
-    resetLuaLine()
+    M.resetLuaLine()
   end)
 end
 
 require('lualine').setup { sections = { lualine_a = { luaLineController } } }
 
-return {
-  resetLuaLine = resetLuaLine,
-  startLuaLine = startLuaLine
-}
+return M

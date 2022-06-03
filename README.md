@@ -14,6 +14,6 @@
 - [ ] improve the lualine module
 - [ ] [find the temp folder: dir=~/tmp](https://neovim.io/doc/user/recover.html)
 - [ ] [create module/functions to import files and create them in the temp folder](https://neovim.io/doc/user/editing.html)
-- [ ] find a way to get the exit event and stop all the servers
-- [ ] create stop functions
+- [x] find a way to get the exit event and stop all the servers
+- [x] create stop functions
 - [x] create the receiver server module
