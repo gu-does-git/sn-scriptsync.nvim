@@ -5,9 +5,11 @@ local copas = require 'copas'
 
 -- Initial connection handler
 local initial_handler = function(ws)
-  SenderConnected = true;
-  LuaLineMessage = LuaLineTitle .. LuaLineSeparator .. "Connected"
-  ws:send('["Connected to NVIM ScriptSync WebSocket"]')
+  if SenderConnected == false then
+    ws:send('["Connected to NVIM ScriptSync WebSocket"]')
+    SenderConnected = true;
+    LuaLineMessage = LuaLineTitle .. LuaLineSeparator .. "Connected"
+  end
 end
 
 -- wss:// server to send stuff to snUtils
