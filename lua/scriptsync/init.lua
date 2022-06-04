@@ -1,20 +1,20 @@
 local sender = require 'scriptsync.sender'
 local receiver = require 'scriptsync.receiver'
-local lualine = require 'scriptsync.lualine_component'
+local utils = require 'scriptsync.utils'
 
 --[[
 EXPORT STUFF
 ]]
 local run = function()
-  lualine.startLuaLine()
+  utils.sendNoti("Starting servers", "info")
   sender.startServer()
   receiver.startServer()
 end
 
 local stop = function()
+  utils.sendNoti("Stopping servers", "info")
   sender.stopServer()
   receiver.stopServer()
-  lualine.resetLuaLine()
 end
 
 

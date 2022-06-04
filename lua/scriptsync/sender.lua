@@ -3,6 +3,7 @@ SERVER STUFF
 ]]
 local M = {}
 local copas = require 'copas'
+local utils = require 'scriptsync.utils'
 
 -- Initial connection handler
 
@@ -11,7 +12,7 @@ local initial_handler = function(ws)
   if M.SenderConnected == false then
     ws:send('["Connected to NVIM ScriptSync WebSocket"]')
     M.SenderConnected = true;
-    LuaLineMessage = LuaLineTitle .. LuaLineSeparator .. "Connected"
+    utils.sendNoti("Connected to SNUtils", "info")
   end
 end
 
