@@ -51,7 +51,7 @@ end
 M.stopServer = function()
   if Server or M.ReceiverConnected == true then
     M.ReceiverConnected = false;
-    Server:stop();
+    --Server:stop();
   end
 end
 

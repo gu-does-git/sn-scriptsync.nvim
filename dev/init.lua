@@ -19,28 +19,37 @@ local unload_packages = function()
   end
 end
 
+unload_packages()
+local pack = require(package_name)
+
 -- executes the run method in the package
 local run_action = function()
-  require(package_name).run()
+  pack.run()
 end
 local stop_action = function()
-  require(package_name).stop()
+  pack.stop()
 end
 
 -- unload and run the function from the package
-function Reload_and_run()
-  unload_packages()
+function run()
+  --unload_packages()
   run_action()
 end
 
-function Reload_and_stop()
-  unload_packages()
+function stop()
+  --unload_packages()
   stop_action()
+end
+
+function reload()
+  stop_action()
+  unload_packages()
 end
 
 local set_keymap = vim.api.nvim_set_keymap
 
-set_keymap('n', ',r', '<cmd>luafile dev/init.lua<cr>', {})
-set_keymap('n', ',w', '<cmd>lua Reload_and_run()<cr>', {})
-set_keymap('n', ',o', '<cmd>lua Reload_and_stop()<cr>', {})
-vim.api.nvim_exec([[ autocmd VimLeavePre * call lua Reload_and_stop() ]], false)
+set_keymap('n', ',p', '<cmd>luafile dev/init.lua<cr>', {})
+set_keymap('n', ',w', '<cmd>lua run()<cr>', {})
+set_keymap('n', ',o', '<cmd>lua stop()<cr>', {})
+set_keymap('n', ',r', '<cmd>lua reload()<cr>', {})
+vim.api.nvim_exec([[ autocmd VimLeavePre * call lua reload() ]], false)
